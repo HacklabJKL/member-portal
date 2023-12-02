@@ -1,6 +1,6 @@
 import type { PageServerLoad } from './$types';
 import { STRAPI_URL } from '$env/static/private';
-import { userSchema } from '$lib';
+import { userSchema } from '$lib/schemas';
 
 export const load: PageServerLoad = async ({ cookies }) => {
 	const jwt = cookies.get('jwt');
