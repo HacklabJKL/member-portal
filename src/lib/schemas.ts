@@ -8,3 +8,8 @@ export const userSchema = z.object({
 	email: z.string().email(),
 	matrixId: z.string().nullable()
 });
+
+export const logInResponseSchema = z.object({
+	jwt: z.string(),
+	user: userSchema
+});
