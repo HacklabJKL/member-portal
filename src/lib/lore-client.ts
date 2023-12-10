@@ -2,7 +2,7 @@ import { STRAPI_URL } from '$env/static/private';
 import { error, redirect } from '@sveltejs/kit';
 import { logInResponseSchema, userSchema } from './schemas';
 
-const loreUrl = new URL(STRAPI_URL);
+export const loreUrl = new URL(STRAPI_URL);
 
 export async function getUser(id: string, jwt: string) {
 	const endpoint = `api/users/${id}`;

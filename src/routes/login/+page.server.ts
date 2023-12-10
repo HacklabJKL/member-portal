@@ -1,3 +1,4 @@
+import { SESSION_COOKIE_NAME } from '$env/static/private';
 import { logIn } from '$lib/lore-client';
 import { error, type Actions, redirect } from '@sveltejs/kit';
 
@@ -15,7 +16,7 @@ export const actions: Actions = {
 		}
 
 		const response = await logIn(username, password);
-		cookies.set('jwt', response.jwt, { path: '/' });
+		cookies.set(SESSION_COOKIE_NAME, response.jwt, { path: '/' });
 		throw redirect(302, 'profile');
 	}
 };
