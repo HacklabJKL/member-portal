@@ -1,9 +1,9 @@
 import type { PageServerLoad } from './$types';
-import { STRAPI_URL } from '$env/static/private';
+import { SESSION_COOKIE_NAME, STRAPI_URL } from '$env/static/private';
 import { userSchema } from '$lib/schemas';
 
 export const load: PageServerLoad = async ({ cookies }) => {
-	const jwt = cookies.get('jwt');
+	const jwt = cookies.get(SESSION_COOKIE_NAME);
 
 	if (jwt) {
 		const url = new URL(STRAPI_URL);

@@ -1,5 +1,5 @@
 import type { PageServerLoad } from './$types';
-import { HACKLAB_NAME, STRAPI_URL } from '$env/static/private';
+import { HACKLAB_NAME, SESSION_COOKIE_NAME, STRAPI_URL } from '$env/static/private';
 import { redirect, type Actions, fail } from '@sveltejs/kit';
 import { z } from 'zod';
 import { userSchema } from '$lib/schemas';
@@ -85,7 +85,12 @@ export const actions: Actions = {
 
 		const signupData = signupResponseSchema.parse(body);
 
-		cookies.set('jwt', signupData.jwt);
+		cookies.set(SESSION_COOKIE_NAME, signupData.jwt, {
+			path: '/',
+			httpOnly: true,
+			sameSite: 'strict',
+			secure: true
+		});
 		throw redirect(302, '/');
 	}
 };
