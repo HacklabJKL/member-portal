@@ -85,7 +85,12 @@ export const actions: Actions = {
 
 		const signupData = signupResponseSchema.parse(body);
 
-		cookies.set(SESSION_COOKIE_NAME, signupData.jwt);
+		cookies.set(SESSION_COOKIE_NAME, signupData.jwt, {
+			path: '/',
+			httpOnly: true,
+			sameSite: 'strict',
+			secure: true
+		});
 		throw redirect(302, '/');
 	}
 };

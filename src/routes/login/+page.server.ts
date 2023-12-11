@@ -19,7 +19,12 @@ export const actions: Actions = {
 		if (!response) {
 			throw error(401, 'Invalid username or password');
 		}
-		cookies.set(SESSION_COOKIE_NAME, response.jwt, { path: '/' });
+		cookies.set(SESSION_COOKIE_NAME, response.jwt, {
+			path: '/',
+			httpOnly: true,
+			sameSite: 'strict',
+			secure: true
+		});
 		throw redirect(302, 'profile');
 	}
 };
