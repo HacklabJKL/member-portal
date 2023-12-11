@@ -13,3 +13,5 @@ export const logInResponseSchema = z.object({
 	jwt: z.string(),
 	user: userSchema
 });
+
+export type LoginResponse = z.infer<typeof logInResponseSchema>;

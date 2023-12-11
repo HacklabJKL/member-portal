@@ -16,6 +16,9 @@ export const actions: Actions = {
 		}
 
 		const response = await logIn(username, password);
+		if (!response) {
+			throw error(401, 'Invalid username or password');
+		}
 		cookies.set(SESSION_COOKIE_NAME, response.jwt, { path: '/' });
 		throw redirect(302, 'profile');
 	}

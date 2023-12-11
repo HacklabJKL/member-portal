@@ -1,6 +1,6 @@
 import { STRAPI_URL } from '$env/static/private';
 import { error, redirect } from '@sveltejs/kit';
-import { logInResponseSchema, userSchema } from './schemas';
+import { logInResponseSchema, userSchema, type LoginResponse } from './schemas';
 
 export const loreUrl = new URL(STRAPI_URL);
 
@@ -47,7 +47,7 @@ export async function getMe(jwt: string) {
 	return user;
 }
 
-export async function logIn(username: string, password: string) {
+export async function logIn(username: string, password: string): Promise<LoginResponse | false> {
 	const endpoint = 'api/auth/local';
 	const route = new URL(endpoint, loreUrl);
 
@@ -63,6 +63,6 @@ export async function logIn(username: string, password: string) {
 		const parsed = logInResponseSchema.parse(body);
 		return parsed;
 	} else {
-		throw new Error(body.message);
+		return false;
 	}
 }
